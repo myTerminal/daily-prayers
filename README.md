@@ -74,6 +74,7 @@ In order to uninstall *daily-prayers*, simply run:
 
 At this point, *daily-prayers* only has one dependency:
 
+ - [Node.js](https://nodejs.org)
  - [mpv](https://mpv.io)
  - [PipeWire](https://pipewire.org)
  - [dbus](https://www.freedesktop.org/wiki/Software/dbus)

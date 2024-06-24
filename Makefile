@@ -17,6 +17,14 @@ crater-get:
 	git clone https://github.com/crater-space/cli /tmp/crater-cli
 
 primary-deps:
+	@echo "Making sure Node.js is installed..."
+ifneq ($(shell command -v node),)
+	@echo "Node.js found."
+else
+	@echo "Node.js not found!"
+	@echo "Attempting to install Node.js using Crater..."
+	/tmp/crater-cli/crater install nodejs
+endif
 	@echo "Making sure mpv is installed..."
 ifneq ($(shell command -v mpv),)
 	@echo "mpv found."
