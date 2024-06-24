@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+d_lat=21.42254
+echo -e "Please enter the latitude of your location (ex: ${d_lat}):"
+read -p "> " v_lat
+d_long=39.82624
+echo -e "Please enter the longitude of your location (ex: ${d_long}):"
+read -p "> " v_long
+
+echo "${v_lat:-$d_lat},${v_long:-$d_long}" | sudo tee /opt/daily-prayers/coordinates

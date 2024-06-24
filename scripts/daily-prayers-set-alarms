@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+/* global require */
+
+const fs = require('fs');
+const https = require('http');
+const { exec } = require('child_process');
+
+const [vLat, vLong] = fs
+      .readFileSync('/opt/daily-prayers/coordinates')
+      .toString()
+      .trim()
+      .split(',');
+const today = new Date();
+const url=`http://api.aladhan.com/v1/timings/${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}?latitude=${vLat}&longitude=${vLong}&method=2&school=1`;
+
+https
+    .get(
+        url,
+        response => {
+            let data = '';
+
+            response.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            response.on('end', () => {
+                try {
+                    const jsonData = JSON.parse(data);
+
+                    const { data: { timings: { Fajr, Dhuhr, Asr, Maghrib, Isha } } } = jsonData;
+
+                    const cronString = [
+                        '0 0 * * * /usr/local/bin/daily-prayers-set-alarms',
+                        Fajr.split(':').reverse().join(' ') + ' * * * /usr/local/bin/daily-prayers-play-adhan /opt/daily-prayers/adhans/Adhan-Fajr_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3',
+                        Dhuhr.split(':').reverse().join(' ') + ' * * * /usr/local/bin/daily-prayers-play-adhan /opt/daily-prayers/adhans/Adhan_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3',
+                        Asr.split(':').reverse().join(' ') + ' * * * /usr/local/bin/daily-prayers-play-adhan /opt/daily-prayers/adhans/Adhan_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3',
+                        Maghrib.split(':').reverse().join(' ') + ' * * * /usr/local/bin/daily-prayers-play-adhan /opt/daily-prayers/adhans/Adhan_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3',
+                        Isha.split(':').reverse().join(' ') + ' * * * /usr/local/bin/daily-prayers-play-adhan /opt/daily-prayers/adhans/Adhan_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3',
+                    ].join('\n');
+
+                    exec(
+                        `echo "${cronString}" | crontab -`,
+                        (error, stdout, stderr) => {
+                            if (error) {
+                                console.error(`Error executing command: ${error.message}`);
+                                return;
+                            }
+
+                            if (stderr) {
+                                console.error(`Error output: ${stderr}`);
+                                return;
+                            }
+                        }
+                    );
+
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            });
+
+        })
+    .on(
+        'error',
+        error => {
+            console.error('Error making HTTP request:', error);
+        }
+    );
