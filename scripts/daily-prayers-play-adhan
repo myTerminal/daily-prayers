@@ -2,4 +2,5 @@
 
 XDG_RUNTIME_DIR=/home/$USER /usr/bin/dbus-run-session /usr/bin/pipewire &
 /usr/bin/sleep 1
+pactl set-sink-volume @DEFAULT_SINK@ 100
 /usr/bin/mpv $1
