@@ -5,6 +5,8 @@
 
 An automated prayer call alarm system for UNIX-like systems
 
+> Note: This is alpha quality software and is expected to receive heavy updates in the coming weeks, InshaAllah. The implementation works on my test hardware and software, and though support for more setups would come soon, please feel free to contribute in order to make it more usable.
+
 ## Background
 
 (coming soon...)
