@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* global require */
-
 const fs = require('fs');
 const https = require('http');
 const { exec } = require('child_process');
@@ -23,45 +21,50 @@ https
         response => {
             let data = '';
 
-            response.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            response.on('end', () => {
-                try {
-                    const jsonData = JSON.parse(data);
-
-                    const { data: { timings: { Fajr, Dhuhr, Asr, Maghrib, Isha } } } = jsonData;
-
-                    const cronString = [
-                        '0 0 * * * /usr/local/bin/daily-prayers-set-alarms',
-                        `${Fajr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathFajr}`,
-                        `${Dhuhr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
-                        `${Asr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
-                        `${Maghrib.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
-                        `${Isha.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
-                    ].join('\n');
-
-                    exec(
-                        `echo "${cronString}" | crontab -`,
-                        (error, stdout, stderr) => {
-                            if (error) {
-                                console.error(`Error executing command: ${error.message}`);
-                                return;
-                            }
-
-                            if (stderr) {
-                                console.error(`Error output: ${stderr}`);
-                                return;
-                            }
-                        }
-                    );
-
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
+            response.on(
+                'data',
+                chunk => {
+                    data += chunk;
                 }
-            });
+            );
 
+            response.on(
+                'end',
+                () => {
+                    try {
+                        const jsonData = JSON.parse(data);
+
+                        const { data: { timings: { Fajr, Dhuhr, Asr, Maghrib, Isha } } } = jsonData;
+
+                        const cronString = [
+                            '0 0 * * * /usr/local/bin/daily-prayers-set-alarms',
+                            `${Fajr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathFajr}`,
+                            `${Dhuhr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
+                            `${Asr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
+                            `${Maghrib.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
+                            `${Isha.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
+                        ].join('\n');
+
+                        exec(
+                            `echo "${cronString}" | crontab -`,
+                            (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`Error executing command: ${error.message}`);
+                                    return;
+                                }
+
+                                if (stderr) {
+                                    console.error(`Error output: ${stderr}`);
+                                    return;
+                                }
+                            }
+                        );
+
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                    }
+                }
+            );
         })
     .on(
         'error',
