@@ -56,6 +56,8 @@ The above command prompts user for geographical co-ordinates to be used for Adha
 
 ### Setting alarms for current day (automatic)
 
+    daily-prayers-set-alarms
+
 The above command sets Adhan reminders.
 
 ## Updating
