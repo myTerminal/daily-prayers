@@ -59,6 +59,14 @@ The following parameters have been hard-coded for the time being and will be mad
 1. **Prayer time calculation method** has been set to "Islamic Society of North America"
 2. **School** has been set to "Hanafi"
 
+**Note:** As *daily-prayers* works with `cron` jobs, it is suggested to be run for a non-organic user dedicated specifically to this.
+
+    useradd muezzin -m
+    passwd muezzin
+    usermod -aG wheel,audio,video,optical,storage muezzin
+
+Using a dedicated user would make sure it won't conflict with `cron` jobs for other users.
+
 ### Configuring for your location (automatic)
 
     daily-prayers-configure
