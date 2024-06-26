@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const https = require('http');
+const http = require('http');
 const { exec } = require('child_process');
 
 const [vLat, vLong] = fs
@@ -15,7 +15,7 @@ const playScriptPath = '/usr/local/bin/daily-prayers-play-adhan';
 const adhanPathFajr = '/opt/daily-prayers/adhans/Adhan-Fajr_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3';
 const adhanPathRegular = '/opt/daily-prayers/adhans/Adhan_Mishary-Rashid-Alafasy_-_Al-Kuwait.mp3';
 
-https
+http
     .get(
         url,
         response => {
