@@ -37,7 +37,7 @@ http
                         const { data: { timings: { Fajr, Dhuhr, Asr, Maghrib, Isha } } } = jsonData;
 
                         const cronString = [
-                            '0 0 * * * /usr/local/bin/daily-prayers-set-alarms',
+                            '0 0 * * * /usr/local/bin/daily-prayers-schedule-tasks',
                             `${Fajr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathFajr}`,
                             `${Dhuhr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
                             `${Asr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,

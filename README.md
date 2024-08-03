@@ -75,9 +75,9 @@ The above command prompts the user for geographical coordinates for Adhan remind
 
 ### Setting alarms for the current day (automatic)
 
-    daily-prayers-set-alarms
+    daily-prayers-schedule-tasks
 
-The above command sets Adhan reminders.
+The above command schedules Adhan reminders, and a few other tasks
 
 ## Updating
 

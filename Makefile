@@ -73,7 +73,7 @@ configure:
 	fi
 
 init:
-	./scripts/daily-prayers-set-alarms
+	./scripts/daily-prayers-schedule-tasks
 
 install: req place configure init
 	@echo "daily-prayers is now installed."
