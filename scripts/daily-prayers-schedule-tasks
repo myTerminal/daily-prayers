@@ -38,6 +38,7 @@ http
 
                         const cronString = [
                             '0 0 * * * /usr/local/bin/daily-prayers-schedule-tasks',
+                            '0 9 * * 0 /usr/local/bin/daily-prayers-reboot',
                             `${Fajr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathFajr}`,
                             `${Dhuhr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,
                             `${Asr.split(':').reverse().join(' ')} * * * ${playScriptPath} ${adhanPathRegular}`,

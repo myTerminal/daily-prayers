@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ $(command -v systemctl) ]; then
+    systemctl reboot
+elif [ $(command -v loginctl) ]; then
+    loginctl reboot
+elif [ $(command -v logger) ]; then
+    logger -i -i daily-prayers 'Could not find a way to reboot!'
+fi
