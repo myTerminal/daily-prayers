@@ -5,13 +5,13 @@
 
 An automated prayer call alarm system for UNIX-like systems
 
-> Note: This alpha-quality software is expected to receive heavy updates in the coming weeks, InshaAllah. The implementation works on my test hardware and software, and though support for more setups will come soon, please feel free to contribute to make it more usable.
+> Note: This is an alpha-quality software and is expected to change with time. In its current state, the implementation works on my test hardware and software. As I expand support on a wider combination of systems, please feel free to contribute to make it more usable.
 
 ## Requirements
 
 ### Hardware
 
-You can run this software on any hardware that can run Linux or other UNIX-like systems.
+You can run this on any hardware that can run Linux or other UNIX-like systems.
 
 ### Software
 
@@ -51,15 +51,15 @@ Simply execute the below command in a terminal; the rest should be automatic.
 
 Once installed, *daily-prayers* works automatically:
 
-1. It fetches the prayer timings for the day once at the start of the day and sets reminders
-2. At the prayer times it sets by itself, it plays an audio version of the appropriate Adhan
+1. It fetches the prayer timings for the day once at the start of the day and sets prayer call reminders.
+2. At the prayer times according to its knowledge, it plays an audio version of the appropriate Adhan for the time.
 
 The following parameters have been hard-coded for the time being and will be made configurable soon:
 
 1. **Prayer time calculation method** has been set to "Islamic Society of North America"
 2. **School** has been set to "Hanafi"
 
-**Note:** As *daily-prayers* works with `cron` jobs, it is suggested to be run for a non-organic user dedicated specifically to this.
+**Note:** As *daily-prayers* works with `cron` jobs, it is suggested to be run for a non-organic user dedicated specifically for this purpose.
 
     useradd muezzin -m
     passwd muezzin
@@ -77,7 +77,7 @@ The above command prompts the user for geographical coordinates for Adhan remind
 
     daily-prayers-schedule-tasks
 
-The above command schedules Adhan reminders, and a few other tasks
+The above command schedules Adhan reminders, and a few other tasks.
 
 ## Updating
 
